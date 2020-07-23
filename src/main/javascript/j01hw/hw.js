@@ -2,6 +2,7 @@
 basics();
 varVsLet();
 exercises();
+gtnFetch();
 
 function basics() {
     let s = 'hiya';
@@ -101,9 +102,10 @@ function sumSharePrices(arr) {
 
 function replaceInArray(obj) {
 	let newArray = [];
-	obj.originalSet.forEach(function(item, index) {
-		newArray.push(obj.toReplace.includes(item) ? obj.newValue : item);
-	});
+	// obj.originalSet.forEach(function(item, index) {
+		// newArray.push(obj.toReplace.includes(item) ? obj.newValue : item);
+	// });
+	obj.originalSet.forEach(item => newArray.push(obj.toReplace.includes(item) ? obj.newValue : item));
 	return newArray;
 }
 
@@ -121,5 +123,21 @@ function createHtmlTable(array) {
 	});
 	tblString += "</table>";
 	return tblString;
+}
+
+function gtn() {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		document.getElementById('showGames').innerHTML=this.responseText;
+	};
+	xhr.open("GET", "http://localhost:8080/api/game", true);
+	xhr.send();
+}
+
+function gtnFetch() {
+	fetch("http://localhost:8080/api/game")
+	.then(response => response.json())
+	.then(r => r.forEach(game => console.log(`${game.id}, ${game.answer}, ${game.finished}`)))
+	.catch(err => console.log("fail: " + err));
 }
 
