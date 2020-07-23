@@ -5,19 +5,21 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>HW v3</title>
 
-   <link rel="stylesheet" href="hw.css"></link>
-   <script src="hw.js"></script>
+   <link rel="stylesheet" href="hw.css"/>
+   <script src="hw.js" defer></script>
  </head>
 
  <body onload="setTime(); setInterval('setTime()', 1000)">
 
    <h1>m3 aspire</h1>
-   <p id='greeting'>hello graduates</p>
-
+   <h2 id='greeting'>hello graduates</h2>
+   <button onclick='toggleText("greeting", "graduates", "hello", "goodbye")'>toggle greeting</button>
+   <p>
    Time Now: <p id='time'></p>
 
-   <button onclick='toggleText("greeting", "graduates", "hello", "goodbye")'>toggle greeting</button>
-
+   <p>
+   <p id="shares"> </p>
+   <button id="sharesButton" onclick='toggleShares()'>show shares</button>
  </body>
 
 </html>
