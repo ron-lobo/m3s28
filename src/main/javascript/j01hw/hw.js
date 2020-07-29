@@ -1,5 +1,6 @@
 
 basics();
+destructure();
 varVsLet();
 exercises();
 gtnFetch();
@@ -15,12 +16,56 @@ function basics() {
     }
 }
 
-var tableHtmlStr;
+function destructure() {
+
+	let student = {
+		name: 'ron',
+		dob: '1/1/2000',
+		start: '1/6/2020',
+		course: 'CS',
+		address: {
+			number: 123,
+			postcode: 'E1 abc',
+		},
+	};
+
+	console.log('student=' + student);
+
+	console.log('student.name=' + student.name + ', dob=' + student.dob + ', course=' + student.course);
+
+	let name0 = student.name;
+	let dob0 = student.dob;
+	let start0 = student.start;
+	let course0 = student.course;
+	let number0 = student.address.number;
+	let postcode0 = student.address.postcode;
+	console.log('name0=' + name0 + ', dob0=' + dob0 + ', start0=' + start0 + ', course0=' + course0 +
+		'number0=' + number0 + ', postcode0=' + postcode0);
+	
+
+	// JS destructuring
+
+	let {name, dob, start, course, address:{number, postcode}} = student;
+	console.log('name=' + name + ', dob=' + dob + ', start=' + start + ', course=' + course +
+		', number=' + number + ', postcode=' + postcode);
+
+	let {name: n, dob: d, start: s, course: c, address:{number: num, postcode: pc}} = student;
+	console.log('n=' + n + ', d=' + d + ', s=' + s + ', c=' + c + ', num=' + num + ', pc=' + pc);
+
+	let [name2, , , course2] = ['ron', '123', 'abc', 'CS'];
+	console.log('name2=' + name2 + ', course2=' + course2);
+
+	let {address:{number: num1, postcode: pc1}} = student;
+	console.log('num1=' + num1 + ', pc1=' + pc1);
+
+}
+
+var tableHtmlStr;	// global variable - must use 'var'; (try to avoid)
 
 function exercises() {
 
     let shares = [99.45, 185.34, 45.45];
-    var result = sumNumArray(shares);
+    let result = sumNumArray(shares);
     console.log("sumNumArray(shares) result=" + result);
 
 
@@ -29,7 +74,7 @@ function exercises() {
         {id: "454534", currency: "USD", symbol: "FB", exchangeName: "NMS", value: 185.34},
         {id: "987646", currency: "USD",  symbol: "GOOG", exchangeName: "NMS", value: 45.45}
     ];
-    var result = sumSharePrices(shares);
+    result = sumSharePrices(shares);
     console.log("sumSharePrices(shares) result=" + result);
 
 
@@ -73,10 +118,12 @@ function toggleShares() {
 
 
 function varVsLet() {
+	var v = 1;
 	for (let i = 0; i < 5; i++) {
 		var num = i;	// scope
 	}
-	console.log("num=" + num);
+	var v = 2;	// redeclare var
+	console.log("num=" + num); // 'num' is visible here, 'i' is not
 }
 
 function sumNumArray(arr) {
@@ -126,7 +173,7 @@ function createHtmlTable(array) {
 }
 
 function gtn() {
-	var xhr = new XMLHttpRequest();
+	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		document.getElementById('showGames').innerHTML=this.responseText;
 	};
@@ -140,4 +187,6 @@ function gtnFetch() {
 	.then(r => r.forEach(game => console.log(`${game.id}, ${game.answer}, ${game.finished}`)))
 	.catch(err => console.log("fail: " + err));
 }
+
+
 
